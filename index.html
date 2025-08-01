@@ -119,6 +119,27 @@
             overflow: hidden;
         }
 
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .particle:nth-child(even) { animation-delay: -2s; }
+        .particle:nth-child(odd) { animation-delay: -4s; }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.1; 
+            }
+            50% { 
+                transform: translateY(-100px) rotate(180deg); 
+                opacity: 0.3; 
+                }
+            }
         .hero::before {
             content: '';
             position: absolute;
@@ -888,6 +909,25 @@
                 }
             });
         });
+
+        // Add this to your existing script section
+function createHeroParticles() {
+    const hero = document.querySelector('.hero');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.width = Math.random() * 15 + 5 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDuration = Math.random() * 4 + 4 + 's';
+        particle.style.animationDelay = Math.random() * 4 + 's';
+        hero.appendChild(particle);
+    }
+}
+
+// Call this after DOM loads
+createHeroParticles();
     </script>
 </body>
 </html>
